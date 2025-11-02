@@ -1,0 +1,49 @@
+services:
+  faculty-backend:
+    image: production_faculty:latest
+    container_name: faculty-backend
+    hostname: faculty-backend
+    restart: always
+    env_file:
+      - .env
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -fsS http://localhost:3000/ || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    networks:
+      - app
+      - data
+      - edge
+    labels:
+      - traefik.enable=true
+
+      - traefik.http.routers.faculty-backend.rule=PathPrefix(`/`)
+      - traefik.http.routers.faculty-backend.entrypoints=websecure
+      - traefik.http.routers.faculty-backend.tls=true
+      - traefik.http.routers.faculty-backend.tls.certresolver=myresolver
+
+      - traefik.http.routers.faculty-backend.middlewares=faculty-backend-ratelimit@docker,faculty-backend-cors@docker
+
+      - traefik.http.services.faculty-backend.loadbalancer.server.port=3000
+
+      - traefik.http.middlewares.faculty-backend-ratelimit.ratelimit.average=30
+      - traefik.http.middlewares.faculty-backend-ratelimit.ratelimit.burst=120
+      - traefik.http.middlewares.faculty-backend-ratelimit.ratelimit.period=3s
+
+      - traefik.http.middlewares.faculty-backend-cors.headers.accessControlAllowOriginList=*
+      - traefik.http.middlewares.faculty-backend-cors.headers.accessControlAllowMethods=GET,POST,PUT,PATCH,DELETE,OPTIONS
+      - traefik.http.middlewares.faculty-backend-cors.headers.accessControlAllowHeaders=*
+      - traefik.http.middlewares.faculty-backend-cors.headers.addVaryHeader=true
+
+networks:
+  data:
+    external: true
+    name: data
+  edge:
+    external: true
+    name: edge
+  app:
+    external: true
+    name: app
