@@ -17,8 +17,8 @@ pipeline {
 
     stage('Inject .env') {
       steps {
-        WITHCREDENTIALS([FILE(CREDENTIALSID: 'FACULTY_ENV', VARIABLE: 'ENV_FILE')]) {
-            SH 'CP "$ENV_FILE" .ENV'
+        withCredentials([file(credentialsId: 'FACULTY_ENV', variable: 'ENV_FILE')]) {
+            sh 'cp "$ENV_FILE" .env'
         }
       }
     }
