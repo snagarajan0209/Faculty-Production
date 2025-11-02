@@ -38,7 +38,7 @@ services:
 
 volumes:
   faculty_uploads:
-  driver: local
+    driver: local
 
 networks:
   data:
