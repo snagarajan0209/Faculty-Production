@@ -35,7 +35,15 @@ services:
 
     volumes:
       - faculty_uploads:/home/periyaruniversity/backend/uploads
-
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://loki.hari.succeedex.in/loki/api/v1/push"
+        loki-retries: 2
+        loki-max-backoff: 800ms
+        loki-timeout: 1s
+        keep-file: "true"
+        mode: non-blocking
 volumes:
   faculty_uploads:
     driver: local
