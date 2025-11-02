@@ -1,8 +1,8 @@
 services:
-  factlty-backend:
+  faculty-backend:
     image: production_faculty
-    container_name: factlty-backend
-    hostname: factlty-backend
+    container_name: faculty-backend
+    hostname: faculty-backend
     restart: always
     env_file:
       - .env
@@ -19,19 +19,19 @@ services:
       - edge
     labels:
       - traefik.enable=true
-      - traefik.http.routers.factlty-backend.rule=PathPrefix(`/`)
-      - traefik.http.routers.factlty-backend.entrypoints=websecure
-      - traefik.http.routers.factlty-backend.tls=true
-      - traefik.http.routers.factlty-backend.tls.certresolver=myresolver
-      - traefik.http.routers.factlty-backend.middlewares=factlty-backend-ratelimit@docker,factlty-backend-cors@docker
-      - traefik.http.services.factlty-backend.loadbalancer.server.port=3000
-      - traefik.http.middlewares.factlty-backend-ratelimit.ratelimit.average=30
-      - traefik.http.middlewares.factlty-backend-ratelimit.ratelimit.burst=120
-      - traefik.http.middlewares.factlty-backend-ratelimit.ratelimit.period=3s
-      - traefik.http.middlewares.factlty-backend-cors.headers.accessControlAllowOriginList=*
-      - traefik.http.middlewares.factlty-backend-cors.headers.accessControlAllowMethods=GET,POST,PUT,PATCH,DELETE,OPTIONS
-      - traefik.http.middlewares.factlty-backend-cors.headers.accessControlAllowHeaders=*
-      - traefik.http.middlewares.factlty-backend-cors.headers.addVaryHeader=true
+      - traefik.http.routers.faculty-backend.rule=PathPrefix(`/`)
+      - traefik.http.routers.faculty-backend.entrypoints=websecure
+      - traefik.http.routers.faculty-backend.tls=true
+      - traefik.http.routers.faculty-backend.tls.certresolver=myresolver
+      - traefik.http.routers.faculty-backend.middlewares=faculty-backend-ratelimit@docker,faculty-backend-cors@docker
+      - traefik.http.services.faculty-backend.loadbalancer.server.port=3000
+      - traefik.http.middlewares.faculty-backend-ratelimit.ratelimit.average=30
+      - traefik.http.middlewares.faculty-backend-ratelimit.ratelimit.burst=120
+      - traefik.http.middlewares.faculty-backend-ratelimit.ratelimit.period=3s
+      - traefik.http.middlewares.faculty-backend-cors.headers.accessControlAllowOriginList=*
+      - traefik.http.middlewares.faculty-backend-cors.headers.accessControlAllowMethods=GET,POST,PUT,PATCH,DELETE,OPTIONS
+      - traefik.http.middlewares.faculty-backend-cors.headers.accessControlAllowHeaders=*
+      - traefik.http.middlewares.faculty-backend-cors.headers.addVaryHeader=true
 
 networks:
   data:
