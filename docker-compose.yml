@@ -34,7 +34,7 @@ services:
       - traefik.http.middlewares.factlty-backend-cors.headers.addVaryHeader=true
 
     volumes:
-      - faculty_uploads:/home/periyaruniversity/backend/uploads
+      - faculty_uploads:/home/periyaruniversity/Faculty-Backend/uploads
     logging:
       driver: loki
       options:
