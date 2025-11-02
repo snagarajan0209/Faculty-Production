@@ -7,27 +7,8 @@ PROJECT ?= faculty-production
 ENV_FILE ?= .env
 SERVICE ?= faculty-backend
 
-.DEFAULT_GOAL := help
+.PHONY: up up-detach down build pull restart logs logs-follow ps exec shell clean prune
 
-.PHONY: help up up-detach down build pull restart logs logs-follow ps exec shell clean prune
-
-help:
-    @echo "Usage: make [target]"
-    @echo ""
-    @echo "Targets:"
-    @echo "  up            Start services in foreground (builds images)"
-    @echo "  up-detach     Start services in background (detached)"
-    @echo "  down          Stop and remove containers, networks"
-    @echo "  build         Build images (no cache, pull latest bases)"
-    @echo "  pull          Pull images from registry"
-    @echo "  restart       Restart services"
-    @echo "  logs          Show recent logs (last 200 lines)"
-    @echo "  logs-follow   Follow logs"
-    @echo "  ps            List running containers"
-    @echo "  exec          Execute a shell in $(SERVICE)"
-    @echo "  shell         Alias for exec"
-    @echo "  clean         Bring down and remove containers and prune images"
-    @echo "  prune         Aggressively prune unused Docker data"
 
 # Start (foreground)
 up:
