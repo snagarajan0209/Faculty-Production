@@ -19,7 +19,7 @@ services:
       - edge
     labels:
       - traefik.enable=true
-      - traefik.http.routers.factlty-backend.rule=host(`faculty.periyaruniversity.ac.in`)
+      - traefik.http.routers.factlty-backend.rule=Host(`faculty.periyaruniversity.ac.in`)
       - traefik.http.routers.factlty-backend.entrypoints=websecure
       - traefik.http.routers.factlty-backend.tls=true
       - traefik.http.routers.factlty-backend.tls.certresolver=myresolver
