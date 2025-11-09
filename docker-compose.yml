@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   factlty-backend:
     image: production_faculty
@@ -42,9 +44,7 @@ services:
         loki-retries: 2
         loki-max-backoff: 800ms
         loki-timeout: 1s
-        keep-file: "true"
-        mode: non-blocking
-    depoly:
+    deploy:
       resources:
         limits:
           cpus: '1.0'
