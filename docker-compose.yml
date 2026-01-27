@@ -1,10 +1,10 @@
 version: '3.8'
 
 services:
-  factlty-backend:
+  faculty-portal:
     image: production_faculty
-    container_name: factlty-backend
-    hostname: factlty-backend
+    container_name: faculty-portal
+    hostname: faculty-portal
     restart: always
     env_file:
       - .env
