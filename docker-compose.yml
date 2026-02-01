@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   faculty-portal:
     image: production_faculty
@@ -12,38 +10,30 @@ services:
       # hit an API path that exists in your app
       test: [ "CMD-SHELL", "curl -fsS http://localhost:3000/ || exit 1" ]
       interval: 30s
-      timeout: 10s
+      timeout: 10s  
       retries: 5
       start_period: 30s
     networks:
-      - app
-      - data
       - edge
+      - data
     labels:
       - traefik.enable=true
-      - traefik.http.routers.factlty-backend.rule=Host(`faculty.periyaruniversity.ac.in`)
-      - traefik.http.routers.factlty-backend.entrypoints=websecure
-      - traefik.http.routers.factlty-backend.tls=true
-      - traefik.http.routers.factlty-backend.tls.certresolver=myresolver
-      - traefik.http.routers.factlty-backend.middlewares=factlty-backend-ratelimit@docker,factlty-backend-cors@docker
-      - traefik.http.services.factlty-backend.loadbalancer.server.port=3000
-      - traefik.http.middlewares.factlty-backend-ratelimit.ratelimit.average=30
-      - traefik.http.middlewares.factlty-backend-ratelimit.ratelimit.burst=120
-      - traefik.http.middlewares.factlty-backend-ratelimit.ratelimit.period=3s
-      - traefik.http.middlewares.factlty-backend-cors.headers.accessControlAllowOriginList=*
-      - traefik.http.middlewares.factlty-backend-cors.headers.accessControlAllowMethods=GET,POST,PUT,PATCH,DELETE,OPTIONS
-      - traefik.http.middlewares.factlty-backend-cors.headers.accessControlAllowHeaders=*
-      - traefik.http.middlewares.factlty-backend-cors.headers.addVaryHeader=true
+      - traefik.http.routers.faculty-portal.rule=Host(`faculty.periyaruniversity.ac.in`)
+      - traefik.http.routers.faculty-portal.entrypoints=websecure
+      - traefik.http.routers.faculty-portal.tls=true
+      - traefik.http.routers.faculty-portal.tls.certresolver=myresolver
+      - traefik.http.routers.faculty-portal.middlewares=faculty-portal-ratelimit@docker,faculty-portal-cors@docker
+      - traefik.http.services.faculty-portal.loadbalancer.server.port=3000
+      - traefik.http.middlewares.faculty-portal-ratelimit.ratelimit.average=30
+      - traefik.http.middlewares.faculty-portal-ratelimit.ratelimit.burst=120
+      - traefik.http.middlewares.faculty-portal-ratelimit.ratelimit.period=3s
+      - traefik.http.middlewares.faculty-portal-cors.headers.accessControlAllowOriginList=*
+      - traefik.http.middlewares.faculty-portal-cors.headers.accessControlAllowMethods=GET,POST,PUT,PATCH,DELETE,OPTIONS
+      - traefik.http.middlewares.faculty-portal-cors.headers.accessControlAllowHeaders=*
+      - traefik.http.middlewares.faculty-portal-cors.headers.addVaryHeader=true
 
     volumes:
-      - faculty_uploads:/home/periyaruniversity/Faculty-Backend/uploads
-    logging:
-      driver: loki
-      options:
-        loki-url: "http://loki.hari.succeedex.in/loki/api/v1/push"
-        loki-retries: 2
-        loki-max-backoff: 800ms
-        loki-timeout: 1s
+      - faculty_uploads:/home/periyaruniversity/Faculty-portal/uploads
     deploy:
       resources:
         limits:
@@ -57,12 +47,9 @@ volumes:
     driver: local
 
 networks:
-  data:
-    external: true
-    name: data
   edge:
     external: true
     name: edge
-  app:
+  data:
     external: true
-    name: app
+    name: data
