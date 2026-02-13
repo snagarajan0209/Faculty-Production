@@ -15,7 +15,6 @@ services:
       start_period: 30s
     networks:
       - edge
-      - data
     labels:
       - traefik.enable=true
       - traefik.http.routers.faculty-portal.rule=Host(`faculty.periyaruniversity.ac.in`)
